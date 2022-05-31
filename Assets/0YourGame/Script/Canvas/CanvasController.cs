@@ -8,6 +8,7 @@ public class CanvasController : MonoBehaviour
     public static CanvasController instance;
 
     public List<Text> txtLv;
+    public Text txtNamePlayer;
     public Slider hp;
     public Text txtHP;
     public Slider mp;
@@ -32,6 +33,7 @@ public class CanvasController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        txtNamePlayer.text = "Name: " + Prefs.NamePlayer;
         UpdateLv();
         UpdateHP();
         UpdateMP();
@@ -52,29 +54,39 @@ public class CanvasController : MonoBehaviour
 
     public void UpdateHP()
     {
-        hp.value = Prefs.PlayerHP;
         hp.maxValue = Prefs.OriginalHP;
+        hp.value = Prefs.PlayerHP;
         txtHP.text = "HP: " + Prefs.PlayerHP + "/" + Prefs.OriginalHP;
     }
     public void UpdateMP()
     {
-        mp.value = Prefs.PlayerMP;
         mp.maxValue = Prefs.OriginalMP;
+        mp.value = Prefs.PlayerMP;
         txtMP.text = "MP: " + Prefs.PlayerMP + "/" + Prefs.OriginalMP;
     }
     public void UpdateExp(string numberExp = null)
     {
-        exp.value = Prefs.PlayerExp;
-        exp.maxValue = Prefs.OriginalExp;
         if (numberExp != null)
         {
             PlayerController.instance.EnableExp(numberExp);
         }
+        if (Prefs.PlayerExp >= Prefs.OriginalExp)
+        {
+            Prefs.PlayerLV++;
+            Prefs.PlayerExp -= Prefs.OriginalExp;
+            Prefs.OriginalExp += 10;
+            Prefs.OriginalHP += 5;
+            UpdateLv();
+            UpdateHP();
+        }
+        exp.maxValue = Prefs.OriginalExp;
+        exp.value = Prefs.PlayerExp;
         txtEXP.text = "EXP: " + Prefs.PlayerExp + "/" + Prefs.OriginalExp;
     }
 
     public void UpdateQuest()
     {
+        Prefs.NumberRequests = Questions.lstQuest[Prefs.CurrentQuest].Value.Key;
         txtQuestBag.text = "Nhiệm vụ của bạn: " + Questions.lstQuest[Prefs.CurrentQuest].Value.Value +
             "(" + Prefs.CurrentQuantity + "/" + Prefs.NumberRequests + ")";
     }

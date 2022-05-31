@@ -49,6 +49,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    protected virtual void Die(GameObject enemy)
+    {
+        enemy.SetActive(false);
+    } 
+
     public void OnDestroy()
     {
         transform.DOKill();

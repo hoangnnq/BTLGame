@@ -9,17 +9,23 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 8;
     public float jumpHeight = 20;
+    public float timeHeal = 3;
+
+    public GameObject bullet;
+    List<GameObject> lstBullet = new List<GameObject>();
 
     public GameObject txtExp;
+    public GameObject txtHp;
     public LayerMask groundLayer;
 
 
     bool grounded;
+    float countdownTime;
 
     SpriteRenderer mySpri;
     Rigidbody2D myRigid;
     Animator myAnim;
-    TextMesh txt;
+    TextMesh txtExpPlayer,txtHpPlayer;
     private void Awake()
     {
         if (instance != null)
@@ -31,33 +37,52 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
+        countdownTime = timeHeal;
         mySpri = GetComponent<SpriteRenderer>();
         myRigid = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
-        txt = txtExp.GetComponent<TextMesh>();
+        txtExpPlayer = txtExp.GetComponent<TextMesh>();
+        txtHpPlayer = txtHp.GetComponent<TextMesh>();
 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        CheckHeal();
+
         CheckRaycast();
 
         MovePlayer();
 
         Jump();
+
+        Fire();
     }
 
     //method
-    public void EnableExp(string exp)
+
+    public void CheckHeal()
     {
-        txt.text = "+ " + exp + "exp";
-        txtExp.SetActive(true); 
-        txtExp.transform.DOMoveY(txtExp.transform.position.y + 3, 2).SetSpeedBased().SetLoops(-1, LoopType.Restart).OnStepComplete(() =>
+        countdownTime -= Time.fixedDeltaTime;
+        if (Prefs.PlayerHP < Prefs.OriginalHP && countdownTime < 0)
         {
-            txtExp.transform.DOPause();
-            txtExp.SetActive(false);
+            int hpHeal = 1;
+            countdownTime = timeHeal;
+            Prefs.PlayerHP += hpHeal;
+            EnableHp(hpHeal.ToString());
+            CanvasController.instance.UpdateHP();
+        }
+    }
+
+    public void EnableHp(string hp)
+    {
+        txtHpPlayer.text = "+ " + hp;
+        txtHp.SetActive(true);
+        txtHp.transform.DOMoveY(txtExp.transform.position.y + 3, 2).SetSpeedBased().SetLoops(-1, LoopType.Restart).OnStepComplete(() =>
+        {
+            txtHp.transform.DOPause();
+            txtHp.SetActive(false);
         });
     }
 
@@ -116,6 +141,35 @@ public class PlayerController : MonoBehaviour
             myRigid.velocity = new Vector2(myRigid.velocity.x, jumpHeight);
         }
     }
+    void Fire()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Vector2 pos = new Vector2(transform.position.x, transform.position.y + 1f);
+            foreach (GameObject g in lstBullet)
+            {
+                if (g.activeSelf)
+                    continue;
+                g.transform.position = pos;
+                g.SetActive(true);
+                return;
+            }
+            GameObject b = Instantiate(bullet, pos, Quaternion.identity);
+            lstBullet.Add(b);
+        }
+    }
+
+    public void EnableExp(string exp)
+    {
+        txtExpPlayer.text = "+ " + exp + "exp";
+        txtExp.SetActive(true);
+        txtExp.transform.DOMoveY(txtExp.transform.position.y + 3, 2).SetSpeedBased().SetLoops(-1, LoopType.Restart).OnStepComplete(() =>
+        {
+            txtExp.transform.DOPause();
+            txtExp.SetActive(false);
+        });
+    }
+
     // physical
     private void OnCollisionExit2D(Collision2D collision)
     {

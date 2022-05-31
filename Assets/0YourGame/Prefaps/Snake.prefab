@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 600615259905658286}
   m_Layer: 0
   m_Name: Snake
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,6 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMove: 1
   speed: 1
-  isHorizonal: 1
+  isHorizontal: 1
+  isLeftToRight: 1
+  posLimit: 3
   hp: 10
   exp: 1

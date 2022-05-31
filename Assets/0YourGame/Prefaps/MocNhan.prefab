@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 492492192540902569}
   m_Layer: 0
   m_Name: MocNhan
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.028476715, y: 0}
+  m_Offset: {x: -0.0581083, y: -0.022223711}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -109,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6114655, y: 2.2742128}
+  m_Size: {x: 0.8114149, y: 2.0816083}
   m_EdgeRadius: 0
 --- !u!114 &492492192540902569
 MonoBehaviour:

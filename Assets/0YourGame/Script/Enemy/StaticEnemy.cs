@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +11,52 @@ public class StaticEnemy : Enemy
     public bool canMove = true;
     public int hp = 5;
     public int exp = 1;
+
+    TextMesh txt;
+    int hpNow;
+    float time = 3;
     // Start is called before the first frame update
     void Start()
     {
-        txtHp.GetComponent<TextMesh>().text = hp + "/" + hp;
+        hpNow = hp;
+        txt = txtHp.GetComponent<TextMesh>();
+        SetTextHp();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        time -= Time.deltaTime;
+        if (time < 0 && txtHp.activeInHierarchy)
+        {
+            txtHp.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            time = 3;
+            hpNow--;
+            txtHp.SetActive(true);
+            SetTextHp();
+        }
+        if (hpNow == 0)
+        {
+            if (Prefs.CurrentQuest == 1 )
+            {
+                Prefs.CurrentQuantity++;
+                CanvasController.instance.UpdateQuest();
+            }
+            hpNow = hp;
+            SetTextHp();
+            Die(gameObject);
+            DOVirtual.DelayedCall(2f, ()=> { gameObject.SetActive(true); });
+        }
+    }
+
+    void SetTextHp()
+    {
+        txt.text = hpNow + "/" + hp;
     }
 }

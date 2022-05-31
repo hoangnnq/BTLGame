@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
+    public void SetTimeScale(float time)
+    {
+        Time.timeScale = time;
+    }
+
     public void LoadPlayer()
     {
         SceneManager.LoadScene(Prefs.ScenePlayer);
