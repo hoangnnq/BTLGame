@@ -22,4 +22,7 @@ public static class GameConst
     public static string CurrentQuest = "current_quest";
     public static string CurrentQuantity = "current_quantity";
     public static string NumberRequests = "number_requests";
+
+
+    //public static string ListItems = "list_items";
 }

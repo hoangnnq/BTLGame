@@ -20,6 +20,7 @@ public class CanvasController : MonoBehaviour
     public GameObject objQuest;
     public Text txtQuest;
 
+
     private void Awake()
     {
         if (instance != null)
@@ -64,20 +65,23 @@ public class CanvasController : MonoBehaviour
         mp.value = Prefs.PlayerMP;
         txtMP.text = "MP: " + Prefs.PlayerMP + "/" + Prefs.OriginalMP;
     }
-    public void UpdateExp(string numberExp = null)
+    public void UpdateExp(int numberExp = 0)
     {
-        if (numberExp != null)
+        if (numberExp > 0)
         {
             PlayerController.instance.EnableExp(numberExp);
         }
-        if (Prefs.PlayerExp >= Prefs.OriginalExp)
+        if (Prefs.PlayerExp >= Prefs.OriginalExp)//len level
         {
+            PlayerController.instance.EnableLvUp();
             Prefs.PlayerLV++;
             Prefs.PlayerExp -= Prefs.OriginalExp;
             Prefs.OriginalExp += 10;
             Prefs.OriginalHP += 5;
+            Prefs.OriginalMP += 2;
             UpdateLv();
             UpdateHP();
+            UpdateMP();
         }
         exp.maxValue = Prefs.OriginalExp;
         exp.value = Prefs.PlayerExp;

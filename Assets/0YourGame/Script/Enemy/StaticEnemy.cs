@@ -14,7 +14,7 @@ public class StaticEnemy : Enemy
 
     TextMesh txt;
     int hpNow;
-    float time = 3;
+    float time = 4;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +36,7 @@ public class StaticEnemy : Enemy
     {
         if (collision.CompareTag("Bullet"))
         {
-            time = 3;
+            time = 4;
             hpNow--;
             txtHp.SetActive(true);
             SetTextHp();
@@ -48,6 +48,8 @@ public class StaticEnemy : Enemy
                 Prefs.CurrentQuantity++;
                 CanvasController.instance.UpdateQuest();
             }
+            Prefs.PlayerExp++;
+            CanvasController.instance.UpdateExp(1);
             hpNow = hp;
             SetTextHp();
             Die(gameObject);

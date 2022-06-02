@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: fd983e9859d74404f951a048d89a822d
+guid: b9bcb05ffb6443e498650abd55d1b904
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 8395557008934714959
-    second: Big0 1_0
-  - first:
-      213: -44453342005256486
-    second: Big0 1_1
-  - first:
-      213: 5283350176609407039
-    second: Big0 1_2
-  - first:
-      213: 7160773308929608508
-    second: Big0 1_3
-  - first:
-      213: 6211424719502227361
-    second: Big0 1_4
-  - first:
-      213: -8451460987169258247
-    second: Big0 1_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -59,12 +41,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 7
-  spritePivot: {x: 0.5, y: 0}
-  spritePixelsToUnits: 50
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -119,91 +101,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Big0 1_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 677
-        width: 85
-        height: 88
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f4e38193e92038470800000000000000
-      internalID: 8395557008934714959
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Big0 1_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 594
-        width: 85
-        height: 83
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ade92b4cbe1126ff0800000000000000
-      internalID: -44453342005256486
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Big0 1_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 506
-        width: 85
-        height: 88
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f301dc44efa325940800000000000000
-      internalID: 5283350176609407039
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Big0 1_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 424
-        width: 85
-        height: 82
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3b09d3926d206360800000000000000
-      internalID: 7160773308929608508
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []

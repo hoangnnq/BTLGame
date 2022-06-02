@@ -18,12 +18,13 @@ public class ClickNPC : MonoBehaviour
             txt.text = "Con đã hoàn thành nhiệm vụ!";
             Prefs.CurrentQuest++;
             Prefs.CurrentQuantity = 0;
-            DOVirtual.DelayedCall(1f, SetText);
+            DOVirtual.DelayedCall(0.8f, SetText);
             return;
         }
         else
         {
             txt.text = "Con hãy đi làm nhiệm vụ đi!";
+            DOVirtual.DelayedCall(1f, ChangePopup);
         }
     }
 
@@ -31,8 +32,8 @@ public class ClickNPC : MonoBehaviour
     {
         txt.text = "Hãy nhận phần thưởng của con!";
         Prefs.PlayerExp += 5;
-        CanvasController.instance.UpdateExp("5");
-        DOVirtual.DelayedCall(1f, QuestNew);
+        CanvasController.instance.UpdateExp(5);
+        DOVirtual.DelayedCall(0.8f, QuestNew);
     }
 
     void QuestNew()

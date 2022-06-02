@@ -20,7 +20,7 @@ public static class Prefs
     }
     public static int PlayerHP
     {
-        get => PlayerPrefs.GetInt(GameConst.PlayerHP, 10);
+        get => PlayerPrefs.GetInt(GameConst.PlayerHP, 1);
 
         set => PlayerPrefs.SetInt(GameConst.PlayerHP, value);
     }
@@ -32,7 +32,7 @@ public static class Prefs
     }
     public static int PlayerMP
     {
-        get => PlayerPrefs.GetInt(GameConst.PlayerMP, 10);
+        get => PlayerPrefs.GetInt(GameConst.PlayerMP, 1);
 
         set => PlayerPrefs.SetInt(GameConst.PlayerMP, value);
     }
@@ -50,7 +50,7 @@ public static class Prefs
     }
     public static float OriginalExp
     {
-        get => PlayerPrefs.GetFloat(GameConst.OriginalExp, 10);
+        get => PlayerPrefs.GetFloat(GameConst.OriginalExp, 15);
 
         set => PlayerPrefs.SetFloat(GameConst.OriginalExp, value);
     }

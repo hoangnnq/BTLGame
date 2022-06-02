@@ -9,15 +9,20 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 8;
     public float jumpHeight = 20;
-    public float timeHeal = 3;
+    public float timeHeal = 10;
 
     public GameObject bullet;
     List<GameObject> lstBullet = new List<GameObject>();
 
-    public GameObject txtExp;
-    public GameObject txtHp;
+    public GameObject txtHpPlayer;
+    public GameObject txtMpPlayer;
+    public GameObject txtExpPlayer;
+    public GameObject LvUpPlayer;
+    public GameObject EffectPlayer;
     public LayerMask groundLayer;
 
+    public int heal = 1;
+    public int mpDesAtk = 1;
 
     bool grounded;
     float countdownTime;
@@ -25,7 +30,11 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer mySpri;
     Rigidbody2D myRigid;
     Animator myAnim;
-    TextMesh txtExpPlayer,txtHpPlayer;
+    Collider2D myColli;
+    TextMesh txtHp,txtMp;
+    Transform transfTxtExp;
+
+    List<GameObject> lstTxtExp = new List<GameObject>();
     private void Awake()
     {
         if (instance != null)
@@ -41,8 +50,11 @@ public class PlayerController : MonoBehaviour
         mySpri = GetComponent<SpriteRenderer>();
         myRigid = GetComponent<Rigidbody2D>();
         myAnim = GetComponent<Animator>();
-        txtExpPlayer = txtExp.GetComponent<TextMesh>();
-        txtHpPlayer = txtHp.GetComponent<TextMesh>();
+        myColli = GetComponent<Collider2D>();
+        txtHp = txtHpPlayer.GetComponent<TextMesh>();
+        txtMp = txtMpPlayer.GetComponent<TextMesh>();
+        transfTxtExp = txtExpPlayer.transform;
+        lstTxtExp.Add(txtExpPlayer);
 
     }
 
@@ -62,35 +74,78 @@ public class PlayerController : MonoBehaviour
 
     //method
 
-    public void CheckHeal()
+    public void CheckHeal()//auto hoi mau va mana moi khoang thoi gian coutdowntime
     {
         countdownTime -= Time.fixedDeltaTime;
-        if (Prefs.PlayerHP < Prefs.OriginalHP && countdownTime < 0)
+        if (countdownTime < 0)
         {
-            int hpHeal = 1;
             countdownTime = timeHeal;
-            Prefs.PlayerHP += hpHeal;
-            EnableHp(hpHeal.ToString());
-            CanvasController.instance.UpdateHP();
+            if (Prefs.PlayerHP < Prefs.OriginalHP)
+            {
+                Prefs.PlayerHP += heal;
+                EnableHp(heal);
+                CanvasController.instance.UpdateHP();
+            }
+            if (Prefs.PlayerMP < Prefs.OriginalMP)
+            {
+                Prefs.PlayerMP += heal;
+                EnableMp(heal);
+                CanvasController.instance.UpdateMP();
+            }
         }
+       
     }
 
-    public void EnableHp(string hp)
+    public void EnableHp(int hp)
     {
-        txtHpPlayer.text = "+ " + hp;
-        txtHp.SetActive(true);
-        txtHp.transform.DOMoveY(txtExp.transform.position.y + 3, 2).SetSpeedBased().SetLoops(-1, LoopType.Restart).OnStepComplete(() =>
+        SetData(txtHpPlayer, txtHp, hp);
+    }
+    public void EnableMp(int mp)
+    {
+        SetData(txtMpPlayer, txtMp, mp);
+    }
+
+    void SetData(GameObject obj, TextMesh txt = null, int number = 0)// gan thong tin vao txt
+    {
+        if (txt != null && number != 0)
         {
-            txtHp.transform.DOPause();
-            txtHp.SetActive(false);
+            txt.text = "+ " + number.ToString();
+        }
+        obj.SetActive(true);
+        obj.transform.DOLocalMoveY(1.6f, 2).SetSpeedBased().SetRelative(true).OnStepComplete(() =>
+        {
+            obj.transform.DOPause();
+            obj.transform.position = new Vector2(obj.transform.position.x, obj.transform.position.y - 1.6f);
+            obj.SetActive(false);
         });
     }
 
-    void CheckRaycast()
+    public void EnableExp(int exp)//hien text exp mau xanh la
     {
-        var hit = Physics2D.BoxCast(transform.position, new Vector2(0.4f, 0.1f), 0, Vector2.zero, 1, groundLayer);
+        foreach (GameObject g in lstTxtExp)
+        {
+            if (g.activeSelf)
+                continue;
+            g.transform.position = transfTxtExp.position;
+            SetData(g, g.GetComponent<TextMesh>(), exp);
+            return;
+        }
+        GameObject objExp = Instantiate(txtExpPlayer, transfTxtExp.position, Quaternion.identity, transfTxtExp.parent);
+        SetData(objExp, objExp.GetComponent<TextMesh>(), exp);
+        lstTxtExp.Add(objExp);
+
+    }
+
+    public void EnableLvUp()
+    {
+        SetData(LvUpPlayer);
+    }
+    void CheckRaycast()//check duoi chan co phai ground k de thay doi animation
+    {
+        var hit = Physics2D.BoxCast(transform.position, new Vector2(myColli.bounds.size.x, 0.1f), 0, Vector2.zero, 1, groundLayer);
         if (hit.collider != null)
         {
+            EffectPlayer.SetActive(true);
             grounded = true;
         }
         else
@@ -104,6 +159,8 @@ public class PlayerController : MonoBehaviour
             {
                 SetIsUp(false);
             }
+
+            EffectPlayer.SetActive(false);
         }
         myAnim.SetBool("grounded", grounded);
     }
@@ -113,7 +170,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void MovePlayer()
+    void MovePlayer()//di chuyen nhan vat
     {
         //D= 1; A = -1
         float move = Input.GetAxis("Horizontal");
@@ -122,6 +179,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+        EffectPlayer.SetActive(false);
         myRigid.velocity = new Vector2(move * speed, myRigid.velocity.y);
 
 
@@ -134,17 +192,19 @@ public class PlayerController : MonoBehaviour
         Prefs.PosYPlayer = transform.position.y;
     }
 
-    void Jump()
+    void Jump()// nhay
     {
         if (Input.GetAxisRaw("Vertical") == 1 && grounded == true)
         {
             myRigid.velocity = new Vector2(myRigid.velocity.x, jumpHeight);
         }
     }
-    void Fire()
+    void Fire()// phong phi tieu tan cong
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(1) && Prefs.PlayerMP >= mpDesAtk)
         {
+            Prefs.PlayerMP -= mpDesAtk;
+            CanvasController.instance.UpdateMP();
             Vector2 pos = new Vector2(transform.position.x, transform.position.y + 1f);
             foreach (GameObject g in lstBullet)
             {
@@ -159,18 +219,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void EnableExp(string exp)
+    // physical
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        txtExpPlayer.text = "+ " + exp + "exp";
-        txtExp.SetActive(true);
-        txtExp.transform.DOMoveY(txtExp.transform.position.y + 3, 2).SetSpeedBased().SetLoops(-1, LoopType.Restart).OnStepComplete(() =>
+        if (collision.CompareTag("GroundTrigger") && transform.position.y > collision.transform.position.y)//nhay xuyen 
         {
-            txtExp.transform.DOPause();
-            txtExp.SetActive(false);
-        });
+            collision.isTrigger = false;
+        }
     }
 
-    // physical
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("GroundTrigger"))
@@ -178,14 +235,6 @@ public class PlayerController : MonoBehaviour
             collision.collider.isTrigger = true;
         }
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("GroundTrigger") && transform.position.y > collision.transform.position.y)
-        {
-            collision.isTrigger = false;
-        }
     }
 
 }
