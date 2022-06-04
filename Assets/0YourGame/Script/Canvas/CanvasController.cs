@@ -81,6 +81,8 @@ public class CanvasController : MonoBehaviour
             Prefs.OriginalExp += 10;
             Prefs.OriginalHP += 5;
             Prefs.OriginalMP += 2;
+            Prefs.PlayerHP = Prefs.OriginalHP;
+            Prefs.PlayerMP = Prefs.OriginalMP;
             UpdateLv();
             UpdateHP();
             UpdateMP();

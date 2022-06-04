@@ -18,8 +18,6 @@ public class GroundEnemy : AnimalEnemy
     public float timeRevival = 5f;
 
 
-    GameObject bullet;
-    List<GameObject> bullet_pooling = new List<GameObject>();
     TextMesh txt;
     SpriteRenderer sprite;
     int hpNow;
@@ -28,7 +26,7 @@ public class GroundEnemy : AnimalEnemy
     // Start is called before the first frame update
     void Start()
     {
-        bullet = GameController.instance.bulletEnemy;
+        SetData();
 
         hpNow = hp;
         txt = txtHp.GetComponent<TextMesh>();
@@ -63,19 +61,7 @@ public class GroundEnemy : AnimalEnemy
     {
         if (collision.CompareTag("Bullet"))
         {
-            foreach (GameObject g in bullet_pooling)
-            {
-                if (g.activeSelf)
-                    continue;
-                g.transform.position = transform.position;
-                g.SetActive(true);
-                goto endmethod;
-            }
-            GameObject obj = Instantiate(bullet, transform.position, Quaternion.identity);
-            obj.GetComponent<BulletEnemy>().damage = dmg;
-            bullet_pooling.Add(obj);
-
-        endmethod:;
+            Fire(this);
             time = 4;
             hpNow -= Prefs.PlayerDamage;
             txtHp.SetActive(true);
