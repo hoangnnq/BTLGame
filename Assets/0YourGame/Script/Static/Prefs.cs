@@ -54,6 +54,20 @@ public static class Prefs
 
         set => PlayerPrefs.SetFloat(GameConst.OriginalExp, value);
     }
+    public static int PlayerCoin
+    {
+        get => PlayerPrefs.GetInt(GameConst.PlayerCoin);
+
+        set => PlayerPrefs.SetInt(GameConst.PlayerCoin, value);
+    }
+    public static int PlayerDamage
+    {
+        get => PlayerPrefs.GetInt(GameConst.PlayerDamage, 1);
+
+        set => PlayerPrefs.SetInt(GameConst.PlayerDamage, value);
+    }
+
+
     public static int ScenePlayer
     {
         get => PlayerPrefs.GetInt(GameConst.ScenePlayer, 1);
@@ -63,14 +77,14 @@ public static class Prefs
 
     public static float PosXPlayer
     {
-        get => PlayerPrefs.GetFloat(GameConst.PosXPlayer);
+        get => PlayerPrefs.GetFloat(GameConst.PosXPlayer, -18);
 
         set => PlayerPrefs.SetFloat(GameConst.PosXPlayer, value);
     }
 
     public static float PosYPlayer
     {
-        get => PlayerPrefs.GetFloat(GameConst.PosYPlayer);
+        get => PlayerPrefs.GetFloat(GameConst.PosYPlayer, 3);
 
         set => PlayerPrefs.SetFloat(GameConst.PosYPlayer, value);
     }

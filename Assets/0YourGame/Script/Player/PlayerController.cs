@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 20;
     public float timeHeal = 10;
 
-    public GameObject bullet;
     List<GameObject> lstBullet = new List<GameObject>();
 
     public GameObject txtHpPlayer;
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     bool grounded;
     float countdownTime;
+    GameObject bullet;
 
     SpriteRenderer mySpri;
     Rigidbody2D myRigid;
@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        bullet = GameController.instance.bullet;
         countdownTime = timeHeal;
         mySpri = GetComponent<SpriteRenderer>();
         myRigid = GetComponent<Rigidbody2D>();
@@ -83,33 +84,33 @@ public class PlayerController : MonoBehaviour
             if (Prefs.PlayerHP < Prefs.OriginalHP)
             {
                 Prefs.PlayerHP += heal;
-                EnableHp(heal);
+                EnableHp(heal, "+hp");
                 CanvasController.instance.UpdateHP();
             }
             if (Prefs.PlayerMP < Prefs.OriginalMP)
             {
                 Prefs.PlayerMP += heal;
-                EnableMp(heal);
+                EnableMp(heal, "+mp");
                 CanvasController.instance.UpdateMP();
             }
         }
        
     }
 
-    public void EnableHp(int hp)
+    public void EnableHp(int hp, string s)
     {
-        SetData(txtHpPlayer, txtHp, hp);
+        SetData(txtHpPlayer, s, txtHp, hp);
     }
-    public void EnableMp(int mp)
+    public void EnableMp(int mp, string s)
     {
-        SetData(txtMpPlayer, txtMp, mp);
+        SetData(txtMpPlayer, s, txtMp, mp);
     }
 
-    void SetData(GameObject obj, TextMesh txt = null, int number = 0)// gan thong tin vao txt
+    void SetData(GameObject obj, string s = null, TextMesh txt = null, int number = 0)// gan thong tin vao txt
     {
         if (txt != null && number != 0)
         {
-            txt.text = "+ " + number.ToString();
+            txt.text = s.Substring(0,1) + " " + number.ToString() + s.Substring(1);
         }
         obj.SetActive(true);
         obj.transform.DOLocalMoveY(1.6f, 2).SetSpeedBased().SetRelative(true).OnStepComplete(() =>
@@ -127,11 +128,11 @@ public class PlayerController : MonoBehaviour
             if (g.activeSelf)
                 continue;
             g.transform.position = transfTxtExp.position;
-            SetData(g, g.GetComponent<TextMesh>(), exp);
+            SetData(g, "+exp", g.GetComponent<TextMesh>(), exp);
             return;
         }
         GameObject objExp = Instantiate(txtExpPlayer, transfTxtExp.position, Quaternion.identity, transfTxtExp.parent);
-        SetData(objExp, objExp.GetComponent<TextMesh>(), exp);
+        SetData(objExp, "+exp", objExp.GetComponent<TextMesh>(), exp);
         lstTxtExp.Add(objExp);
 
     }

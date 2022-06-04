@@ -6,14 +6,29 @@ using DG.Tweening;
 public class BulletPlayer : MonoBehaviour
 {
     public float speed = 8;
+    public float posLimit = 7;
+    Vector2 myPos;
+
+
     Rigidbody2D bulletRigid;
     SpriteRenderer bulletSprite;
-    int angle = 0;
+    int angle = 0; 
 
+    private void Awake()
+    {
+        bulletRigid = GetComponent<Rigidbody2D>();
+        bulletSprite = GetComponent<SpriteRenderer>();
+
+    }
 
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.x > myPos.x + posLimit || transform.position.x < myPos.x - posLimit)
+        {
+            gameObject.SetActive(false);
+        }
+        //xoay phi tieu
         if (bulletSprite.flipX && transform.rotation.z < 181)
         {
             angle += 5;
@@ -32,6 +47,7 @@ public class BulletPlayer : MonoBehaviour
 
     private void OnEnable()
     {
+        myPos = transform.position;
         CheckDir();
     }
 
@@ -42,8 +58,6 @@ public class BulletPlayer : MonoBehaviour
 
     void CheckDir()
     {
-        bulletRigid = GetComponent<Rigidbody2D>();
-        bulletSprite = GetComponent<SpriteRenderer>();
         if (GameController.instance.player.GetComponent<SpriteRenderer>().flipX)
         {
             bulletRigid.velocity = new Vector2(-speed, 0);

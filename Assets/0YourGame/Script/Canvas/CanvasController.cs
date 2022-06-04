@@ -16,6 +16,7 @@ public class CanvasController : MonoBehaviour
     public Slider exp;
     public Text txtEXP;
     public Text txtQuestBag;
+    public Text txtCoin;
 
     public GameObject objQuest;
     public Text txtQuest;
@@ -39,6 +40,7 @@ public class CanvasController : MonoBehaviour
         UpdateHP();
         UpdateMP();
         UpdateExp();
+        UpdateCoin();
         UpdateQuest();
         if (Prefs.CurrentQuest == 0 && Prefs.ScenePlayer == 1)
         {
@@ -88,10 +90,15 @@ public class CanvasController : MonoBehaviour
         txtEXP.text = "EXP: " + Prefs.PlayerExp + "/" + Prefs.OriginalExp;
     }
 
+    public void UpdateCoin()
+    {
+        txtCoin.text = Prefs.PlayerCoin.ToString();
+    }
+
     public void UpdateQuest()
     {
         Prefs.NumberRequests = Questions.lstQuest[Prefs.CurrentQuest].Value.Key;
-        txtQuestBag.text = "Nhiệm vụ của bạn: " + Questions.lstQuest[Prefs.CurrentQuest].Value.Value +
+        txtQuestBag.text = "Thử thách của bạn: " + Questions.lstQuest[Prefs.CurrentQuest].Value.Value +
             "(" + Prefs.CurrentQuantity + "/" + Prefs.NumberRequests + ")";
     }
 

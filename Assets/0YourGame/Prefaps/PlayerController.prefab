@@ -748,7 +748,6 @@ MonoBehaviour:
   speed: 8
   jumpHeight: 20
   timeHeal: 3
-  bullet: {fileID: 7276757515053761106, guid: df4fae8b7cbe0be4797392bce6109f17, type: 3}
   txtHpPlayer: {fileID: 476668494002120451}
   txtMpPlayer: {fileID: 2706450562146399261}
   txtExpPlayer: {fileID: 7072282146449269821}
@@ -756,9 +755,9 @@ MonoBehaviour:
   EffectPlayer: {fileID: 5514953626470876416}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 32768
   heal: 1
-  mpDesAtk: 2
+  mpDesAtk: 1
 --- !u!114 &8601616654360884297
 MonoBehaviour:
   m_ObjectHideFlags: 0

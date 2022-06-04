@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9167130471678136069}
   - component: {fileID: 7875539684094041447}
   - component: {fileID: 8820451132820160829}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: BambooBridge
   m_TagString: GroundTrigger
   m_Icon: {fileID: 0}

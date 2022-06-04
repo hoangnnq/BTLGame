@@ -13,7 +13,9 @@ public static class GameConst
     public static string OriginalMP = "original_mp";    
     public static string PlayerExp = "player_exp";
     public static string OriginalExp = "original_exp";
-    
+    public static string PlayerDamage = "player_damage";
+    public static string PlayerCoin = "player_coin";
+
     public static string ScenePlayer = "scene_player";
 
     public static string PosXPlayer = "pos_x_player";

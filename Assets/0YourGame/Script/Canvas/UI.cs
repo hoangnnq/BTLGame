@@ -10,6 +10,14 @@ public class UI : MonoBehaviour
         Time.timeScale = time;
     }
 
+    public void TeleportPlayer()
+    {
+        Prefs.PosXPlayer = -18;
+        Prefs.PosYPlayer = 3;
+        Prefs.ScenePlayer = 1;
+        LoadIndexScene(1);
+    }
+
     public void LoadPlayer()
     {
         SceneManager.LoadScene(Prefs.ScenePlayer);

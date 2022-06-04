@@ -9,6 +9,7 @@ TagManager:
   - NPC
   - Enemy
   - Bullet
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -18,14 +19,14 @@ TagManager:
   - UI
   - 
   - Player
-  - BulletPlayer
+  - Bullet
+  - 
+  - Enemy
+  - 
+  - Item
   - 
   - 
   - Ground
-  - 
-  - 
-  - 
-  - 
   - 
   - 
   - 
