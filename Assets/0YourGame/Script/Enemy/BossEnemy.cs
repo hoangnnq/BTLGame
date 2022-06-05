@@ -6,17 +6,20 @@ using UnityEngine.UI;
 public class BossEnemy : MonoBehaviour
 {
     public Slider sliderHp;
-    public int hp = 30;
+    public int hp = 50;
     public int exp = 20;
     public float speed = 5;
     public int damage = 5;
 
+    public AudioSource audioBoss;
+
     SpriteRenderer sprite;
     Rigidbody2D rigid;
+    Animator animator;
     int hpNow;
 
     bool check = false;
-    float time = 2;
+    float time;
 
     GameObject bullet;
     List<GameObject> bullet_poolingb = new List<GameObject>();
@@ -25,6 +28,7 @@ public class BossEnemy : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         hpNow = hp;
         UpdateHp();
         Move();
@@ -36,8 +40,9 @@ public class BossEnemy : MonoBehaviour
         time -= Time.deltaTime;
         if (check == true && time <= 0)
         {
-            Ban(transform.position);
+            animator.Play("Boss-attack Animation");
             time = 2;
+            Invoke("Fire", 0.2f);
         }
     }
 
@@ -69,7 +74,7 @@ public class BossEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Bullet") && CheckAttackBoss.instance.CheckDie())
         {
             GameController.instance.EnableAudio(music.hitEnemy);
             hpNow -= Prefs.PlayerDamage;
@@ -81,11 +86,14 @@ public class BossEnemy : MonoBehaviour
             Prefs.PlayerExp += exp;
             CanvasController.instance.UpdateExp(exp);
             gameObject.SetActive(false);
+            CanvasController.instance.SetWin();
         }
     }
 
-    void Ban(Vector2 pos)
+    void Fire()
     {
+        Vector2 pos = transform.position;
+        audioBoss.Play();
         foreach (GameObject g in bullet_poolingb)
         {
             if (g.activeSelf)

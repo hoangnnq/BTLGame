@@ -21,9 +21,12 @@ public class CanvasController : MonoBehaviour
     public GameObject objQuest;
     public Text txtQuest;
 
-    public GameObject btnDie;
+    public GameObject imgDie;
     public Text txtDieCoin;
     public Text txtDieQuest;
+    public GameObject imgWin;
+    public Text txtWinCoin;
+    public Text txtWinQuest;
 
     private void Awake()
     {
@@ -120,6 +123,13 @@ public class CanvasController : MonoBehaviour
         Time.timeScale = 0;
         txtDieCoin.text = "Your Coin: " + Prefs.PlayerCoin.ToString();
         txtDieQuest.text = "Your quest complete: "+ (Prefs.CurrentQuest).ToString();
-        btnDie.SetActive(true);
+        imgDie.SetActive(true);
+    }
+    public void SetWin()
+    {
+        Time.timeScale = 0;
+        txtWinCoin.text = "Your Coin: " + Prefs.PlayerCoin.ToString();
+        txtWinQuest.text = "You have killed the boss and freed the village.";
+        imgWin.SetActive(true);
     }
 }

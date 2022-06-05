@@ -64,6 +64,7 @@ public class AnimalEnemy : Enemy
 
     protected virtual void Fire(AnimalEnemy enemy)
     {
+        GameController.instance.EnableAudio(music.hitEnemy);
         foreach (GameObject g in bullet_pooling)
         {
             if (g.activeSelf)
