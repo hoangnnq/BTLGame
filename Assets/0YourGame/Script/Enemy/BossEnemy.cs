@@ -26,6 +26,7 @@ public class BossEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioBoss.volume = Prefs.EffectSound;
         sprite = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -83,6 +84,7 @@ public class BossEnemy : MonoBehaviour
         }
         if (hpNow <= 0)
         {
+            Prefs.CurrentQuantity++;
             Prefs.PlayerExp += exp;
             CanvasController.instance.UpdateExp(exp);
             gameObject.SetActive(false);

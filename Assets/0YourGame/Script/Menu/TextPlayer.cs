@@ -13,7 +13,11 @@ public class TextPlayer : MonoBehaviour
         Text inputName = MenuController.instance.inputName;
         if(inputName.text != "")
         {
+            float soundBack = Prefs.BackgroundSound;
+            float soundEffect = Prefs.EffectSound;
             PlayerPrefs.DeleteAll();
+            Prefs.BackgroundSound = soundBack;
+            Prefs.EffectSound = soundEffect;
             Prefs.NamePlayer = inputName.text;
             SceneManager.LoadScene(1);
         }

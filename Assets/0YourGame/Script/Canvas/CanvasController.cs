@@ -114,7 +114,7 @@ public class CanvasController : MonoBehaviour
     public void EnableQuest(KeyValuePair<int, KeyValuePair<int, string>> q)
     {
         objQuest.SetActive(true);
-        txtQuest.text = "Nhiệm vụ " + (q.Key + 1) + ":" + q.Value.Value;
+        txtQuest.text = "Thử thách " + (q.Key + 1) + ":" + q.Value.Value;
     }
 
     public void SetDie()
@@ -127,7 +127,6 @@ public class CanvasController : MonoBehaviour
     }
     public void SetWin()
     {
-        Time.timeScale = 0;
         txtWinCoin.text = "Your Coin: " + Prefs.PlayerCoin.ToString();
         txtWinQuest.text = "You have killed the boss and freed the village.";
         imgWin.SetActive(true);

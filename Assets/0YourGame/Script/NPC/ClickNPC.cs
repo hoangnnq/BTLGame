@@ -11,12 +11,15 @@ public class ClickNPC : MonoBehaviour
     public void EnablePopup()
     {
         ChangePopup();
+        if (Prefs.NumberRequests == 0)
+        {
+            txt.text = "Trời thật đẹp !";
+            return;
+        }
         if (Prefs.CurrentQuantity >= Prefs.NumberRequests || Prefs.CurrentQuest == 0)
         {
             //hoan thanh nvu
             txt.text = "Con đã hoàn thành nhiệm vụ!";
-            Prefs.CurrentQuest++;
-            Prefs.CurrentQuantity = 0;
             DOVirtual.DelayedCall(0.8f, SetText);
             return;
         }
@@ -38,6 +41,8 @@ public class ClickNPC : MonoBehaviour
     void QuestNew()
     {
         txt.text = "Và nhận nhiệm vụ mới!";
+        Prefs.CurrentQuest++;
+        Prefs.CurrentQuantity = 0;
         CanvasController.instance.EnableQuest(Questions.lstQuest[Prefs.CurrentQuest]);
         CanvasController.instance.UpdateQuest();
         DOVirtual.DelayedCall(1f, ChangePopup);

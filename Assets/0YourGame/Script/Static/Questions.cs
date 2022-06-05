@@ -16,6 +16,8 @@ public static class Questions
         AddQuest(lstQuest, 2, 3, "Nhặt 3 vỏ ốc sên!");
         AddQuest(lstQuest, 3, 3, "Nhặt 3 da rắn!");
         AddQuest(lstQuest, 4, 3, "Nhặt 3 xác dơi!");
+        AddQuest(lstQuest, 5, 1, "Giết boss và trả tự do cho ngôi làng!");
+        AddQuest(lstQuest, 6, 0, "Con đã trưởng thành rồi, hãy đi theo hướng con đường của con!");
     }
     public static void AddQuest(List<KeyValuePair<int, KeyValuePair<int, string>>> lst,int cur, int number, string quest)
     {
