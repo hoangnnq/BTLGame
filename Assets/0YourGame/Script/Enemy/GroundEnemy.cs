@@ -61,13 +61,14 @@ public class GroundEnemy : AnimalEnemy
     {
         if (collision.CompareTag("Bullet"))
         {
+            GameController.instance.EnableAudio(music.hitEnemy);
             Fire(this);
             time = 4;
             hpNow -= Prefs.PlayerDamage;
             txtHp.SetActive(true);
             SetTextHp();
         }
-        if (hpNow == 0)
+        if (hpNow <= 0)
         {
             hpNow = hp;
             Die(gameObject);

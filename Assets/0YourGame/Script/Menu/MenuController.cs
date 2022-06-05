@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class MenuController : MonoBehaviour
     public Text placeHolderName;
     public Text inputName;
     public GameObject btnResume;
+
+    public AudioSource audioMenu;
+
+    public Slider backgroundSound;
+    public Slider effectSound;
     private void Awake()
     {
         instance = this;
@@ -19,6 +25,8 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        backgroundSound.value = Prefs.BackgroundSound;
+        effectSound.value = Prefs.EffectSound;
         if (Prefs.NamePlayer != "")
         {
             btnResume.SetActive(true);
@@ -27,6 +35,16 @@ public class MenuController : MonoBehaviour
         {
             btnResume.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        transform.DOKill();
+    }
+
+    public void SetAudio(float volume)
+    {
+        audioMenu.volume = volume;
     }
 
 }

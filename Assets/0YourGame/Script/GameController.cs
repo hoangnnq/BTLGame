@@ -2,12 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum music
+{
+    none, attack, loot, lvUp, hitEnemy
+}
+
 public class GameController : MonoBehaviour
 {
+
     public static GameController instance;
+
+    public AudioSource backgroundSound;
+
     public GameObject player;
+    public AudioSource audioPlayer;
+    public AudioClip attackPlayer;
+    public AudioClip lootPlayer;
+    public AudioClip lvUpPlayer;
+
     public GameObject bullet;
     public GameObject bulletEnemy;
+    public AudioSource audioEnemy;
+    public AudioClip hitEnemy;
 
     public LayerMask itemLayer;
     private void Awake()
@@ -17,13 +33,46 @@ public class GameController : MonoBehaviour
         instance = this;
         //DontDestroyOnLoad(this.gameObject);
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    private void Start()
+    {
+        UpdateSound();
     }
 
-    // Update is called once per frame
+    public void EnableAudio(music a)
+    {
+        switch (a)
+        {
+            case music.none:
+                break;
+            case music.attack:
+                audioPlayer.clip = attackPlayer;
+                audioPlayer.Play();
+                break;
+            case music.loot:
+                audioPlayer.clip = lootPlayer;
+                audioPlayer.Play();
+                break;
+            case music.lvUp:
+                audioPlayer.clip = lvUpPlayer;
+                audioPlayer.Play();
+                break;
+            case music.hitEnemy:
+                audioEnemy.clip = hitEnemy;
+                audioEnemy.Play();
+                break;
+            default:
+                break;
+        }
+    } 
+
+    public void UpdateSound()
+    {
+        backgroundSound.volume = Prefs.BackgroundSound;
+        audioPlayer.volume = Prefs.EffectSound;
+        audioEnemy.volume = Prefs.EffectSound;
+    } 
+
     void Update()
     {
         if (Input.GetMouseButtonUp(0))
@@ -61,6 +110,7 @@ public class GameController : MonoBehaviour
             Prefs.CurrentQuantity++;
             CanvasController.instance.UpdateQuest();
         }
+        EnableAudio(music.loot);
         hit.collider.gameObject.SetActive(false);
 
     }

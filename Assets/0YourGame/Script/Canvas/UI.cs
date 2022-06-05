@@ -9,13 +9,26 @@ public class UI : MonoBehaviour
     {
         Time.timeScale = time;
     }
+    public void SetBackgroundSound(float val)
+    {
+        Prefs.BackgroundSound = val;
+        MenuController.instance.SetAudio(val);
+    }
+    public void SetEffectSound(float val)
+    {
+        Prefs.EffectSound = val;
+    }
 
     public void TeleportPlayer()
     {
-        Prefs.PosXPlayer = -18;
-        Prefs.PosYPlayer = 3;
-        Prefs.ScenePlayer = 1;
-        LoadIndexScene(1);
+        if (Prefs.ScenePlayer != 1 )
+        {
+            Prefs.PosXPlayer = -18;
+            Prefs.PosYPlayer = 3;
+            Prefs.ScenePlayer = 1;
+            LoadIndexScene(1);
+
+        }
     }
 
     public void LoadPlayer()

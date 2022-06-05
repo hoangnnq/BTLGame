@@ -6,7 +6,6 @@ using DG.Tweening;
 
 public class ClickNPC : MonoBehaviour
 {
-    [SerializeField] Button btn;
     [SerializeField] GameObject popup;
     [SerializeField] Text txt;
     public void EnablePopup()
@@ -47,5 +46,10 @@ public class ClickNPC : MonoBehaviour
     void ChangePopup()
     {
         popup.SetActive(!popup.activeInHierarchy);
+    }
+
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 }

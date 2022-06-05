@@ -22,9 +22,12 @@ public class Enemy : MonoBehaviour
         Prefs.PlayerExp += eExp;
         CanvasController.instance.UpdateExp(eExp);
 
-        endmethod:;
+    endmethod:;
         enemy.SetActive(false);
-        DOVirtual.DelayedCall(eTimeRevival, () => { enemy.SetActive(true); });
+        if (Prefs.ScenePlayer < 4)
+        {
+            DOVirtual.DelayedCall(eTimeRevival, () => { enemy.SetActive(true); });
+        }
     } 
 
     public void OnDestroy()
@@ -32,5 +35,5 @@ public class Enemy : MonoBehaviour
         transform.DOKill();
     }
 
-    
+
 }

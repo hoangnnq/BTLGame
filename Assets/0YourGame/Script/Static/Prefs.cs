@@ -5,6 +5,20 @@ using UnityEngine.UI;
 
 public static class Prefs
 {
+    public static float BackgroundSound
+    {
+        get => PlayerPrefs.GetFloat(GameConst.BackgroundSound, 0.5f);
+
+        set => PlayerPrefs.SetFloat(GameConst.BackgroundSound, value);
+    }
+
+    public static float EffectSound
+    {
+        get => PlayerPrefs.GetFloat(GameConst.EffectSound, 1);
+
+        set => PlayerPrefs.SetFloat(GameConst.EffectSound, value);
+    }
+
     public static int PlayerLV
     {
         get => PlayerPrefs.GetInt(GameConst.PlayerLv, 1);
@@ -20,25 +34,25 @@ public static class Prefs
     }
     public static int PlayerHP
     {
-        get => PlayerPrefs.GetInt(GameConst.PlayerHP, 1);
+        get => PlayerPrefs.GetInt(GameConst.PlayerHP, 15);
 
         set => PlayerPrefs.SetInt(GameConst.PlayerHP, value);
     }
     public static int OriginalHP
     {
-        get => PlayerPrefs.GetInt(GameConst.OriginalHP, 10);
+        get => PlayerPrefs.GetInt(GameConst.OriginalHP, 15);
 
         set => PlayerPrefs.SetInt(GameConst.OriginalHP, value);
     }
     public static int PlayerMP
     {
-        get => PlayerPrefs.GetInt(GameConst.PlayerMP, 1);
+        get => PlayerPrefs.GetInt(GameConst.PlayerMP, 15);
 
         set => PlayerPrefs.SetInt(GameConst.PlayerMP, value);
     }
     public static int OriginalMP
     {
-        get => PlayerPrefs.GetInt(GameConst.OriginalMP, 10);
+        get => PlayerPrefs.GetInt(GameConst.OriginalMP, 15);
 
         set => PlayerPrefs.SetInt(GameConst.OriginalMP, value);
     }
@@ -50,7 +64,7 @@ public static class Prefs
     }
     public static float OriginalExp
     {
-        get => PlayerPrefs.GetFloat(GameConst.OriginalExp, 15);
+        get => PlayerPrefs.GetFloat(GameConst.OriginalExp, 20);
 
         set => PlayerPrefs.SetFloat(GameConst.OriginalExp, value);
     }

@@ -34,11 +34,20 @@ public class BulletEnemy : MonoBehaviour
             PlayerController.instance.EnableHp(damage,"-hp");
             CanvasController.instance.UpdateHP();
             gameObject.SetActive(false);
+            if (Prefs.PlayerHP <= 0)
+            {
+                CanvasController.instance.SetDie();
+            }
         }
     }
 
     private void OnEnable()
     {
         collidePlayer = false;
+    }
+
+    private void OnDestroy()
+    {
+        transform.DOKill();
     }
 }

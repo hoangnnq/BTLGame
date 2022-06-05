@@ -263,7 +263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32037311}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.905493, y: 2.0573583, z: -10}
+  m_LocalPosition: {x: 7.11749, y: 2.0491378, z: -10}
   m_LocalScale: {x: 1.0214, y: 0.9931, z: 1}
   m_Children: []
   m_Father: {fileID: 1992327524}
@@ -11582,6 +11582,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1659238894}
     m_Modifications:
+    - target: {fileID: 1816880313, guid: c5d1f34cab18634479bc302d4f81fa19, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ea547e4814e5d8040a9b645d9bd929c3, type: 3}
     - target: {fileID: 3119659812734111076, guid: c5d1f34cab18634479bc302d4f81fa19, type: 3}
       propertyPath: player
       value: 
@@ -15827,7 +15831,7 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 115.022255, y: 15.797173}
-      - {x: -7.02837, y: 15.729847}
-      - {x: -6.9765944, y: -4.946556}
-      - {x: 115.00504, y: -4.983824}
+    - - {x: 115, y: 16}
+      - {x: -7, y: 16}
+      - {x: -7, y: -4}
+      - {x: 115, y: -4}

@@ -13,7 +13,9 @@ public class NextMap : MonoBehaviour
     {
         if(collision.collider.tag == "Player")
         {
-            if (Prefs.CurrentQuest < 3 && scene == 3)
+            if (Prefs.CurrentQuest < 2 && scene == 2 ||
+                Prefs.CurrentQuest < 3 && scene == 3 ||
+                Prefs.CurrentQuest < 5 && scene == 4)
             {
                 return;
             }

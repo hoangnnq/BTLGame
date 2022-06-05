@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Bullet
   - Coin
+  - ChangeDirection
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5224423648153765783}
   - component: {fileID: 6515200382308857697}
   - component: {fileID: 600615259905658286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Snake
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -250,4 +250,4 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4279308756

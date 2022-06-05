@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 8;
     public float jumpHeight = 20;
-    public float timeHeal = 10;
+    public float timeHeal = 5;
 
     List<GameObject> lstBullet = new List<GameObject>();
 
@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     public GameObject EffectPlayer;
     public LayerMask groundLayer;
 
-    public int heal = 1;
+    public int healhp = 2;
+    public int healmp = 3;
     public int mpDesAtk = 1;
 
     bool grounded;
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     SpriteRenderer mySpri;
     Rigidbody2D myRigid;
-    Animator myAnim;
+    [HideInInspector] public Animator myAnim;
     Collider2D myColli;
     TextMesh txtHp,txtMp;
     Transform transfTxtExp;
@@ -83,14 +84,14 @@ public class PlayerController : MonoBehaviour
             countdownTime = timeHeal;
             if (Prefs.PlayerHP < Prefs.OriginalHP)
             {
-                Prefs.PlayerHP += heal;
-                EnableHp(heal, "+hp");
+                Prefs.PlayerHP += healhp;
+                EnableHp(healhp, "+hp");
                 CanvasController.instance.UpdateHP();
             }
             if (Prefs.PlayerMP < Prefs.OriginalMP)
             {
-                Prefs.PlayerMP += heal;
-                EnableMp(heal, "+mp");
+                Prefs.PlayerMP += healmp;
+                EnableMp(healmp, "+mp");
                 CanvasController.instance.UpdateMP();
             }
         }
@@ -139,6 +140,7 @@ public class PlayerController : MonoBehaviour
 
     public void EnableLvUp()
     {
+        GameController.instance.EnableAudio(music.lvUp);
         SetData(LvUpPlayer);
     }
     void CheckRaycast()//check duoi chan co phai ground k de thay doi animation
@@ -204,8 +206,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && Prefs.PlayerMP >= mpDesAtk)
         {
+            myAnim.Play("Attack Animation");
             Prefs.PlayerMP -= mpDesAtk;
             CanvasController.instance.UpdateMP();
+            GameController.instance.EnableAudio(music.attack);
             Vector2 pos = new Vector2(transform.position.x, transform.position.y + 1f);
             foreach (GameObject g in lstBullet)
             {
@@ -237,5 +241,8 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
+    private void OnDestroy()
+    {
+        transform.DOKill();
+    }
 }

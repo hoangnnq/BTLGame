@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4664046479789205813}
   - component: {fileID: 3249409316826588138}
   - component: {fileID: 410961493093420935}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -250,4 +250,4 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4279308756

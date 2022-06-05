@@ -45,6 +45,7 @@ public class StaticEnemy : Enemy
     {
         if (collision.CompareTag("Bullet"))
         {
+            GameController.instance.EnableAudio(music.hitEnemy);
             timeEnavleHp = 4;
             hpNow--;
             txtHp.SetActive(true);

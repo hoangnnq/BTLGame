@@ -747,7 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpHeight: 20
-  timeHeal: 3
+  timeHeal: 5
   txtHpPlayer: {fileID: 476668494002120451}
   txtMpPlayer: {fileID: 2706450562146399261}
   txtExpPlayer: {fileID: 7072282146449269821}
@@ -756,8 +756,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 32768
-  heal: 1
+  healhp: 2
+  healmp: 3
   mpDesAtk: 1
+  myAnim: {fileID: 0}
 --- !u!114 &8601616654360884297
 MonoBehaviour:
   m_ObjectHideFlags: 0

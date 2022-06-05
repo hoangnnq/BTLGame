@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class GameConst 
 {
+
+    public static string BackgroundSound = "background_sound";
+    public static string EffectSound = "effect_sound";
+
     public static string NamePlayer = "name_player";
 
     public static string PlayerLv = "player_level";

@@ -25,6 +25,8 @@ public class FlyEnemy : AnimalEnemy
     // Start is called before the first frame update
     void Start()
     {
+        SetData();
+
         hpNow = hp;
         txt = txtHp.GetComponent<TextMesh>();
         sprite = GetComponent<SpriteRenderer>();
@@ -61,12 +63,13 @@ public class FlyEnemy : AnimalEnemy
     {
         if (collision.CompareTag("Bullet"))
         {
+            Fire(this);
             time = 4;
             hpNow -= Prefs.PlayerDamage;
             txtHp.SetActive(true);
             SetTextHp();
         }
-        if (hpNow == 0)
+        if (hpNow <= 0)
         {
             hpNow = hp;
             SetTextHp();

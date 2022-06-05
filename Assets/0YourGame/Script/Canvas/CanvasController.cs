@@ -21,6 +21,9 @@ public class CanvasController : MonoBehaviour
     public GameObject objQuest;
     public Text txtQuest;
 
+    public GameObject btnDie;
+    public Text txtDieCoin;
+    public Text txtDieQuest;
 
     private void Awake()
     {
@@ -47,6 +50,7 @@ public class CanvasController : MonoBehaviour
             EnableQuest(Questions.lstQuest[0]);
         }
     }
+
     public void UpdateLv()
     {
         foreach (Text item in txtLv)
@@ -80,7 +84,7 @@ public class CanvasController : MonoBehaviour
             Prefs.PlayerExp -= Prefs.OriginalExp;
             Prefs.OriginalExp += 10;
             Prefs.OriginalHP += 5;
-            Prefs.OriginalMP += 2;
+            Prefs.OriginalMP += 3;
             Prefs.PlayerHP = Prefs.OriginalHP;
             Prefs.PlayerMP = Prefs.OriginalMP;
             UpdateLv();
@@ -108,5 +112,14 @@ public class CanvasController : MonoBehaviour
     {
         objQuest.SetActive(true);
         txtQuest.text = "Nhiệm vụ " + (q.Key + 1) + ":" + q.Value.Value;
+    }
+
+    public void SetDie()
+    {
+        PlayerController.instance.myAnim.Play("Die Animation");
+        Time.timeScale = 0;
+        txtDieCoin.text = "Your Coin: " + Prefs.PlayerCoin.ToString();
+        txtDieQuest.text = "Your quest complete: "+ (Prefs.CurrentQuest).ToString();
+        btnDie.SetActive(true);
     }
 }
